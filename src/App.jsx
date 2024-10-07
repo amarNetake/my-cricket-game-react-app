@@ -17,6 +17,12 @@ const BallWiseResult = ({ result }) => {
   );
 };
 
+const DisplayComment = ({comment}) => {
+  const date = new Date();
+  return (
+    <p className="text-md font-medium">{`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}&nbsp;&nbsp;&nbsp;&nbsp;{comment}</p>
+  )
+}
 function App() {
   const [score, setScore] = useState(0);
   const [wicket, setWicket] = useState(0);
@@ -130,7 +136,7 @@ function App() {
           You scored: {score}
         </div>
         <div className="flex flex-col gap-2 items-center">
-            {comments? comments.map((comment,index)=><p key={index}>{comment}</p>):null}
+            {comments? comments.map((comment,index)=><DisplayComment key={index} comment={comment}/>):null}
         </div>
       </div>
     </>
