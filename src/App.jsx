@@ -25,19 +25,24 @@ function App() {
   const inputRef = useRef(null);
   const commentRef = useRef(null);
 
-  function increaseScore(score) {
-    if (wicket < 10) setScore((prev) => prev + score);
+  function increaseScore(score){
+    if(score == 'W') setWicket(prev => prev + 1);
+    else if (wicket < 10) setScore((prev) => prev + parseInt(score));
     setResult([...result, score]);
+  }
+
+  function handleClick(score){
     inputRef.current.value = score;
     inputRef.current.disabled = true;
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e){
     e.preventDefault();
     setComments([...comments, commentRef.current.value]);
-    commentRef.current.value = "";
+    increaseScore(inputRef.current.value);
+    commentRef.current.value = '';
     inputRef.current.disabled = false;
-    inputRef.current.value = "";
+    inputRef.current.value = '';
     commentRef.current.focus();
   }
 
@@ -55,52 +60,49 @@ function App() {
         >
           <button
             className="px-2 border border-black"
-            onClick={() => increaseScore(1)}
+            onClick={()=>handleClick(0)}
+          >
+            0
+          </button>
+          <button
+            className="px-2 border border-black"
+            onClick={()=>handleClick(1)}
           >
             1
           </button>
           <button
             className="px-2 border border-black"
-            onClick={() => increaseScore(2)}
+            onClick={()=>handleClick(2)}
           >
             2
           </button>
           <button
             className="px-2 border border-black"
-            onClick={() => increaseScore(3)}
+            onClick={()=>handleClick(3)}
           >
             3
           </button>
           <button
             className="px-2 border border-black"
-            onClick={() => increaseScore(4)}
+            onClick={()=>handleClick(4)}
           >
             4
           </button>
           <button
             className="px-2 border border-black"
-            onClick={() => increaseScore(5)}
+            onClick={()=>handleClick(5)}
           >
             5
           </button>
           <button
             className="px-2 border border-black"
-            onClick={() => increaseScore(6)}
+            onClick={()=>handleClick(6)}
           >
             6
           </button>
           <button
             className="px-2 border border-black"
-            onClick={() => {
-              setWicket((prev) => prev + 1);
-              setResult((prev) => [...prev, "W"]);
-              inputRef.current.value = 'W';
-              inputRef.current.disabled = true;
-              if (wicket == 10) {
-                setScore(0);
-                setWicket(0);
-              }
-            }}
+            onClick={() => handleClick('W')}
           >
             Wicket
           </button>
